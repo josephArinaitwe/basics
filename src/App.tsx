@@ -1,5 +1,6 @@
 import Message from "./message"
 import Alert from "./components/alert";
+import Button from "./components/button";
 import ListGroup from "./components/ListGroup";
 function App(){
   // const items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Mumbai'];
@@ -19,6 +20,7 @@ return( <div>
     <Alert >
       This is an <span className='alert-link'> alert </span> message!
     </Alert>
+    <Button />
   </div>
   );
  
