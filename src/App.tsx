@@ -16,11 +16,14 @@ function App(){
         
   //   </div>
   // )
+  const handleClick = () => {
+    console.log('Button clicked!');
+  }
 return( <div>
     <Alert >
       This is an <span className='alert-link'> alert </span> message!
     </Alert>
-    <Button />
+    <Button onClick={() => console.log('Button clicked!')}>Click Me</Button >
   </div>
   );
  
