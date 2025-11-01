@@ -16,7 +16,9 @@ function App(){
   //   </div>
   // )
 return( <div>
-    <Alert text={"this is the alert"}/>
+    <Alert >
+      This is an <span className='alert-link'> alert </span> message!
+    </Alert>
   </div>
   );
  
