@@ -2,6 +2,7 @@ import Message from "./message"
 import Alert from "./components/alert";
 import Button from "./components/button";
 import ListGroup from "./components/ListGroup";
+import { useState } from "react";
 function App(){
   // const items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Mumbai'];
   // const handleSelectItem = (item: string) => {
@@ -16,14 +17,24 @@ function App(){
         
   //   </div>
   // )
+  const [showAlert, setShowAlert] = useState(false);
+  
   const handleClick = () => {
-    console.log('Button clicked!');
+    setShowAlert(true);
   }
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  }
+  
 return( <div >
-    <Alert >G
-      This is an <span className='alert-link'> alert </span> message!
-    </Alert>
-    <Button onClick={() => console.log('Button clicked!')} color="success">Click Me</Button >
+    
+    {/* <Button onClick={() => console.log('Button clicked!')} color="success">Click Me</Button > */}
+    { showAlert && 
+      <Alert onClose={handleCloseAlert}>
+        This is an <span className='alert-link'> alert </span> message!
+      </Alert>
+    }
     <Button onClick={handleClick} color="warning">Click Me</Button >
   </div>
   );
