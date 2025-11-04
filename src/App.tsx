@@ -18,6 +18,14 @@ function App(){
   //   </div>
   // )
   const [showAlert, setShowAlert] = useState(false);
+  const [drink, setDrink] = useState({
+    name: 'coffee',
+    price: 5
+  })
+
+  const [person, setPerson] = useState(
+    {firstname: 'John', lastname: 'Doe'}
+  )
   
   const handleClick = () => {
     setShowAlert(true);
@@ -26,8 +34,15 @@ function App(){
   const handleCloseAlert = () => {
     setShowAlert(false);
   }
-  
-return( <div >
+
+  const handleUpdateDrink = () => {
+    setDrink({name: 'Latte', price: 6});
+  }
+
+return( 
+<div >
+
+  <ListGroup items={['New York', 'San Francisco', 'Tokyo', 'London', 'Mumbai']} heading="Cities" onSelectItem={(item) => console.log(item)} />
     
     {/* <Button onClick={() => console.log('Button clicked!')} color="success">Click Me</Button > */}
     { showAlert && 
@@ -36,8 +51,20 @@ return( <div >
       </Alert>
     }
     <Button onClick={handleClick} color="warning">Click Me</Button >
+
+    <Message />
+     <Message />
+      <Message />
+       <Message />
+      <div>{drink.name} : ${drink.price}</div>
+       <button onClick={handleUpdateDrink}>Update Drink</button>
+       <form action=""></form>
+       <form action="inpu" className="border border-black"></form>
+
   </div>
   );
+
+
  
 }
 
