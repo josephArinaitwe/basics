@@ -4,6 +4,8 @@ import Button from "./components/button";
 import ListGroup from "./components/ListGroup";
 import { useState } from "react";
 import produce from "immer";
+import Navbar from "./components/navbar";
+import CartItem from "./components/cartItem";
 function App(){
   // const items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Mumbai'];
   // const handleSelectItem = (item: string) => {
@@ -64,68 +66,15 @@ function App(){
 
 //   </div>
 //   );
-const [customer, setCustomer] = useState({
-  name: 'john',
-  address: {
-    city: 'New York',
-    street: '5th Avenue',
-    zipcode: '10001'
-  }
-});
-const [tags, setTags] = useState<string[]>(['tag1', 'tag2', 'tag3']);
-
-const [bugs, setBugs] = useState([
-  {id: 1, title:'bug 1', fixed: false},
-  {id: 2, title:'bug 2', fixed: true},
-  {id: 3, title:'bug 3', fixed: false}
-])
-
-const handleTags = () => {
-  console.log(tags);
-  setTags([...tags, 'tag4', 'tag5', 'tag6']);
-
-  setTags(tags.filter(tag => tag !== 'tag1'))
-}
-
-
- const handleUpdate = () => {
-   {console.log(customer)}
-    setCustomer({
-      ...customer, 
-      name: 'Jane',
-      address: {
-        ...customer.address,
-        city: 'London'
-      }
-    })
-  }
-
-  const handlebug = () => {
-    console.log(bugs);
-    
-    setBugs(bugs.map(bug => bug.id === 1 ? {...bug, fixed: true} : bug))
-
-    setBugs(produce(draft => {
-      const bug = draft.find(bug => bug.id ===1);
-    }))
-  }
-
-return (
-  <div className="">
-   <button onClick={handleUpdate}>
-    Update Customer
-   </button>
-
-  <button onClick={handleTags}>
-    Update Tags
-  </button>
-
-  <button onClick={handlebug}>
-    Update Bugs
-  </button>
-
-  </div>
-
-);
+//
+const [cartItems, setCarItems] = useState([
+  'product1', 'product2', 'product3'
+]);
+return(
+<>
+<Navbar cartItemsCount={cartItems.length} />
+<CartItem cartItems={cartItems} onClear={() =>setCarItems([])}/>
+</>
+)
 }
 export default App;
