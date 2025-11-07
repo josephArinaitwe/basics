@@ -6,6 +6,7 @@ import { useState } from "react";
 import produce from "immer";
 import Navbar from "./components/navbar";
 import CartItem from "./components/cartItem";
+import Form from "./components/form";
 function App(){
   // const items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Mumbai'];
   // const handleSelectItem = (item: string) => {
@@ -95,43 +96,46 @@ function App(){
 
 //   </>
 // )
-const [pizza, setPizza] = useState({
-  name: 'Pepperoni',
-  toppings: ['Mushrooms']
-})
+// const [pizza, setPizza] = useState({
+//   name: 'Pepperoni',
+//   toppings: ['Mushrooms']
+// })
 
-const [cart, setCart] = useState({
-  discount: .1,
-  items: [
-    {id: 1, title: 'Product 1', quantity: 1},
-    {id: 2, title: 'Product 2', quantity: 2},
-    {id: 3, title: 'Product 3', quantity: 1}
-  ]
-})
+// const [cart, setCart] = useState({
+//   discount: .1,
+//   items: [
+//     {id: 1, title: 'Product 1', quantity: 1},
+//     {id: 2, title: 'Product 2', quantity: 2},
+//     {id: 3, title: 'Product 3', quantity: 1}
+//   ]
+// })
 
-const handleClick = () => {
-  setPizza({...pizza, toppings: [...pizza.toppings, 'onions']})
-}
+// const handleClick = () => {
+//   setPizza({...pizza, toppings: [...pizza.toppings, 'onions']})
+// }
 
-const handleChangeQty = () =>{
-  setCart({...cart, items: cart.items.map(item => item.id === 2 ? {...item, quantity: 5} : item)})
-}
+// const handleChangeQty = () =>{
+//   setCart({...cart, items: cart.items.map(item => item.id === 2 ? {...item, quantity: 5} : item)})
+// }
+// return (
+//   <>
+//   {pizza.name} : {pizza.toppings.join(', ')}
+//   <button onClick={handleClick}>Add Topping</button>
+
+//   <ul>
+//     {cart.items.map(item => 
+//       <li key={item.id}>
+//         {item.title} : {item.quantity}
+//       </li>
+//     )}
+//     <button onClick={handleChangeQty}>Change Quantity</button>
+//   </ul>
+
+
+//   </>
+// )
 return (
-  <>
-  {pizza.name} : {pizza.toppings.join(', ')}
-  <button onClick={handleClick}>Add Topping</button>
-
-  <ul>
-    {cart.items.map(item => 
-      <li key={item.id}>
-        {item.title} : {item.quantity}
-      </li>
-    )}
-    <button onClick={handleChangeQty}>Change Quantity</button>
-  </ul>
-
-
-  </>
+  <Form />
 )
 }
 export default App;
