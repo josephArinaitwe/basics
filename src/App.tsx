@@ -7,6 +7,7 @@ import produce from "immer";
 import Navbar from "./components/navbar";
 import CartItem from "./components/cartItem";
 import Form from "./components/form";
+import ExpenseTrackerForm from "./components/ExpenseTrackerForm";
 function App(){
   // const items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Mumbai'];
   // const handleSelectItem = (item: string) => {
@@ -135,7 +136,7 @@ function App(){
 //   </>
 // )
 return (
-  <Form />
+  <ExpenseTrackerForm/>
 )
 }
 export default App;

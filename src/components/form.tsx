@@ -1,5 +1,14 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react'
-import {FieldValue, FieldValues, useForm} from 'react-hook-form';
+import {FieldValue, FieldValues, useForm, FormState} from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+const schema =z.object({
+    name: z.string().min(3, {message: 'Name must be at least 3 characters long.'}),
+    age: z.number().min(18, {message: 'You must be at least 18 years old.'})
+    //email: z.string().email({message: 'Invalid email address'})
+});
+
+type FormData = z.infer<typeof schema>;
 
 const Form = () => {
 //     const {register} = useForm();
@@ -54,16 +63,31 @@ const Form = () => {
  
 
     // </form>
-const {register, handleSubmit} = useForm();
+   
+    interface FormData {
+    name: string;
+    age: number;
+    }
+const {register, handleSubmit, formState: { errors, isValid }} = useForm<FormData>({resolver: zodResolver(schema)});
 const onSubmit = (data: FieldValues) => {console.log(data)}
   return (
    <form action="" onSubmit={handleSubmit(onSubmit)}>
     <div className="mb-3">
         <label htmlFor='name' className='' >Name</label>
         <input id='name' type="text" className='form-control' {...register('name')} />
-        
+        {errors.name && <p className="text-danger">{errors.name.message}</p>}
+   
         
     </div>
+     <div className="mb-3">
+        <label htmlFor='age' className='' >Age</label>
+        <input id='age' type="number" className='form-control' {...register('age', {valueAsNumber: true}) } />
+        {errors.age && <p className="text-danger">{errors.age.message}</p>}
+        
+        <div className="form-text">We'll never share your email with anyone else.</div>
+        
+    </div>
+    <button  type='submit' className='btn btn-primary'>Submit</button>
    </form>
   )
 }
