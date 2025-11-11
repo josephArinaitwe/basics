@@ -8,7 +8,12 @@ import Navbar from "./components/navbar";
 import CartItem from "./components/cartItem";
 import Form from "./components/form";
 import ExpenseTrackerForm from "./components/ExpenseTrackerForm";
+import ExpenseFilter from "./components/ExpenseFilter";
+export const categories = ['Categories', 'Food', 'Utilities', 'Groceries', 'Entertainment'];
+
 function App(){
+ 
+
   // const items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Mumbai'];
   // const handleSelectItem = (item: string) => {
   //   console.log(item);
@@ -135,8 +140,32 @@ function App(){
 
 //   </>
 // )
+ const [selectedCategory, setSelectedCategory] = useState('')
+  const [expenses, setExpenses] = useState([
+    {id: 1, description: 'Coffee', amount: 3, category: 'Food', date: '2024-06-01'},
+    {id: 2, description: 'Groceries', amount: 50, category: 'Food', date: '2024-06-02'},
+    {id: 3, description: 'Milk', amount: 15, category: 'Groceries', date: '2024-06-03'},
+    {id: 4, description: 'Chatgpt', amount: 20, category: 'Utilities', date: '2024-06-04'},
+    {id: 5, description: 'Electricity Bill', amount: 75, category: 'Utilities', date: '2024-06-05'}
+  ])
+
+  const visibleExpenses = selectedCategory?
+                          expenses.filter(e => e.category === selectedCategory) 
+                          : expenses;
+
 return (
-  <ExpenseTrackerForm/>
+  <>
+  <div className="mb-3">
+     <ExpenseFilter onSelectCategory={(category) => {
+      setSelectedCategory(category);
+  }} /> 
+  </div>
+    
+    <ExpenseTrackerForm expenses={visibleExpenses} onDelete={(id) => setExpenses(expenses.filter((e) => e.id !== id))} />
+   
+  </>
+
+  
 )
 }
 export default App;
