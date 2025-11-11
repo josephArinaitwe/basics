@@ -2,6 +2,7 @@ import React from 'react'
 import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';  
+import { categories } from '../App';
 
 const schema = z.object({
     description: z.string().min(3, {message: 'Description must be at least 3 characters long.'}),
@@ -21,13 +22,14 @@ type FormData = z.infer<typeof schema>;
 
 const ExpenseForm = () => {
         const {register, handleSubmit, formState: { errors }} = useForm<FormData>({resolver: zodResolver(schema)});
-const onSubmit = (data: FieldValues) => setExpensesList([...expensesList, {
-        id: expensesList.length + 1,
-        description: data.description,
-        amount: data.amount,
-        category: data.category,
-        date: data.date
-    }]);
+// const onSubmit = (data: FieldValues) => setExpensesList([...expensesList, {
+//         id: expensesList.length + 1,
+//         description: data.description,
+//         amount: data.amount,
+//         category: data.category,
+//         date: data.date
+//     }]);
+const onSubmit = (data: FieldValues) => (console.log(data));
     
   return (
    <>
@@ -44,12 +46,11 @@ const onSubmit = (data: FieldValues) => setExpensesList([...expensesList, {
             </div>
             <div className="mb-3">
                 <label htmlFor="category" className="form-label">Category</label>
-                <select {...register('category')} id="category" className="form-select">
-                    <option value="">Select a category</option>
-                    <option value="groceries">Groceries</option>
-                    <option value="utilities">Utilities</option>
-                    <option value="entertainment">Entertainment</option>
-                   
+                <select name="category" id="category" className='form-select'>
+                    <option value="">Select Category</option>
+                    {categories.map(category => (
+                        <option key={category} value={category} {...register('category')}>{category}</option>
+                    ))}
                 </select>
                 {errors.category && <p className="text-danger">{errors.category.message}</p>}
             </div>

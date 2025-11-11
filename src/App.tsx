@@ -9,6 +9,7 @@ import CartItem from "./components/cartItem";
 import Form from "./components/form";
 import ExpenseTrackerForm from "./components/ExpenseTrackerForm";
 import ExpenseFilter from "./components/ExpenseFilter";
+import ExpenseForm from "./components/ExpenseForm";
 export const categories = ['Categories', 'Food', 'Utilities', 'Groceries', 'Entertainment'];
 
 function App(){
@@ -146,15 +147,19 @@ function App(){
     {id: 2, description: 'Groceries', amount: 50, category: 'Food', date: '2024-06-02'},
     {id: 3, description: 'Milk', amount: 15, category: 'Groceries', date: '2024-06-03'},
     {id: 4, description: 'Chatgpt', amount: 20, category: 'Utilities', date: '2024-06-04'},
-    {id: 5, description: 'Electricity Bill', amount: 75, category: 'Utilities', date: '2024-06-05'}
+    {id: 5, description: 'Electricity Bill', amount: 75, category: 'Utilities', date: '2024-06-05'},
+    {id: 6, description: 'Movie', amount: 30, category: 'Entertainment', date: '2024-06-06'}
   ])
 
-  const visibleExpenses = selectedCategory?
+const visibleExpenses = selectedCategory?
                           expenses.filter(e => e.category === selectedCategory) 
                           : expenses;
 
 return (
   <>
+  <div className="mb-3">
+      <ExpenseForm />
+  </div>
   <div className="mb-3">
      <ExpenseFilter onSelectCategory={(category) => {
       setSelectedCategory(category);
