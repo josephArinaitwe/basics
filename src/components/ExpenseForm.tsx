@@ -2,12 +2,15 @@ import React from 'react'
 import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';  
-import { categories } from '../App';
+import categories from '../Expense/categories';
 
+interface Props{
+    onSubmit: (data: ExpenseFormData) => void;  
+}
 const schema = z.object({
     description: z.string().min(3, {message: 'Description must be at least 3 characters long.'}),
     amount: z.number().min(1, {message: 'Amount must be at least 1.'}),
-    category: z.string().min(1, {message: 'Category is required.'}),
+    category: z.enum(categories, {message: 'Category is required.'}),
     date: z.string().min(1, {message: 'Date is required.'})
 })
 const expensesList: Array<{
@@ -18,19 +21,17 @@ const expensesList: Array<{
     date: string;
 }> = [];
 
-type FormData = z.infer<typeof schema>;
+type ExpenseFormData = z.infer<typeof schema>;
 
-const ExpenseForm = () => {
-        const {register, handleSubmit, formState: { errors }} = useForm<FormData>({resolver: zodResolver(schema)});
+const ExpenseForm = ({onSubmit}: Props  ) => { const {register, handleSubmit, formState: { errors }} = useForm<ExpenseFormData>({resolver: zodResolver(schema)});
 // const onSubmit = (data: FieldValues) => setExpensesList([...expensesList, {
 //         id: expensesList.length + 1,
 //         description: data.description,
-//         amount: data.amount,
+//         amount: data.amount, 
 //         category: data.category,
 //         date: data.date
 //     }]);
-const onSubmit = (data: FieldValues) => (console.log(data));
-    
+ 
   return (
    <>
             <form action="" onSubmit={handleSubmit(onSubmit)}>

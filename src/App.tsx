@@ -11,7 +11,6 @@ import ExpenseTrackerForm from "./components/ExpenseTrackerForm";
 import ExpenseFilter from "./components/ExpenseFilter";
 import ExpenseForm from "./components/ExpenseForm";
 export const categories = ['Categories', 'Food', 'Utilities', 'Groceries', 'Entertainment'];
-
 function App(){
  
 
@@ -158,7 +157,7 @@ const visibleExpenses = selectedCategory?
 return (
   <>
   <div className="mb-3">
-      <ExpenseForm />
+      <ExpenseForm  onSubmit={(data) => console.log(data) } />
   </div>
   <div className="mb-3">
      <ExpenseFilter onSelectCategory={(category) => {
