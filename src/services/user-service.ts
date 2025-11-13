@@ -16,22 +16,17 @@ class UserService {
 
   }  
 
-  deleteUser(user: User){
-    const controller = new AbortController();
-    const request = apiClients.delete('/users/' + user.id, {
-        signal: controller.signal
-  });
-    return {request, cancel: () => controller.abort()}
+    deleteUser(id: number){
+    return  apiClients.delete('/users/' + id);
     }
 
-    postUser(newUser: User){
-      const controller = new AbortController();
-      const request = apiClients.post('/users', newUser, {
-        signal: controller.signal
-      });
-      return {request, cancel: () => controller.abort()}
-    
+    postUser(user: User){
+    return apiClients.post('/users', user)
     }
+
+    postUpdate(user: User){
+    return apiClients.patch('/users/' + user.id, user)    
     }
+}
 
 export default new UserService();

@@ -10,7 +10,7 @@ import Form from "./components/form";
 import ExpenseFilter from "./components/ExpenseFilter";
 import ExpenseForm from "./components/ExpenseForm";
 import ProductList from "./components/ProductList";
-import apiClients, { CanceledError } from "./services/api-clients"; 
+import  { CanceledError } from "./services/api-clients"; 
 import { set } from "zod";
 import { is, original } from "immer/dist/internal";
 import userService, { User } from "./services/user-service";
@@ -216,22 +216,23 @@ useEffect(() => {
 const deleteUser = (user: User) =>{
   setUsers(users.filter(u => u.id !== user.id));
   const  originalUsers = [...users];
-  const {request, cancel} = userService.deleteUser(user);
-  request
+
+  userService.deleteUser(user.id)
+  .then((response) => {console.log(response.data)})
   .catch(err => {
     setError(err.message);
     setUsers(originalUsers);
   })
+ 
 }
 const addUser = () => {
   const originalUsers = [...users];
-  const newUser = {id: 0, name: 'New User', username: 'newuser', email: 'newuser@example.com'};
+  const newUser = {id: users.length + 1, name: 'New User', username: 'newuser', email: 'newuser@example.com'};
   setUsers([newUser, ...users]); 
 
   //  apiClients.post('/users', newUser)
   //  .then(response => setUsers([response.data, ...users]))
-  const {request, cancel} = userService.postUser(newUser);
-  request
+  userService.postUser(newUser)
    .then(response => setUsers([response.data, ...users]))
    .catch(err => {
     setError(err.message);
@@ -244,7 +245,9 @@ const updateUser = (user: User) => {
   const updatedUser = {...user, name: user.name + '!'};
   setUsers(users.map(u => u.id === user.id ? updatedUser : u));
 
-  apiClients.put('/users/' + user.id, updatedUser)
+  // apiClients.put('/users/' + user.id, updatedUser)
+  userService.postUpdate(updatedUser)
+  .then(response => {console.log(response.data)})
   .catch(err => {
     setError(err.message);
     setUsers(originalUsers);
