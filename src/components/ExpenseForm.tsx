@@ -23,18 +23,20 @@ const expensesList: Array<{
 
 type ExpenseFormData = z.infer<typeof schema>;
 
-const ExpenseForm = ({onSubmit}: Props  ) => { const {register, handleSubmit, formState: { errors }} = useForm<ExpenseFormData>({resolver: zodResolver(schema)});
-// const onSubmit = (data: FieldValues) => setExpensesList([...expensesList, {
-//         id: expensesList.length + 1,
-//         description: data.description,
-//         amount: data.amount, 
-//         category: data.category,
-//         date: data.date
-//     }]);
- 
+const ExpenseForm = ({onSubmit}: Props  ) => { 
+    const {
+        register, 
+        handleSubmit, 
+        reset,
+        formState: { errors },
+    } = useForm<ExpenseFormData>({resolver: zodResolver(schema)});
+
   return (
    <>
-            <form action="" onSubmit={handleSubmit(onSubmit)}>
+            <form action="" onSubmit={handleSubmit(data => {
+                onSubmit(data);
+                reset();
+            })}>
             <div className="mb-3">
                 <label htmlFor="description" className="form-label">Description</label>
                 <input {...register('description')} id="description" type="text" className="form-control" />
